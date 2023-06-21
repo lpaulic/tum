@@ -1,7 +1,7 @@
 # T.U.M. - Tale's Usage Monitor
 
 ## About
-This project is done for my dear colleague Matej Sokolec. Purpose of this project is various systemd data and publish data over MQTT.
+This project is done for my dear colleague [@Soki324](https://github.com/Soki324). Purpose of this project is various systemd data and publish data over MQTT.
 The name is an acronym, where the only weird part is the 'T' which stands for Tale, a nickname of mine that I am trying to make it stick :).
 
 ## Requirements
