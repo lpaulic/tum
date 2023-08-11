@@ -22,6 +22,8 @@ The name is an acronym, where the only weird part is the 'T' which stands for Ta
    3. The network port
    4. Periodic time for publishing the data over network
 
+## Implementation
+### Monitored resource
 The JSON representation of the data that is reported by this application is as follows:
 * `cpu` array that contains objects with following attributes:
   * `id` -> identification number of the CPU, represented with a integer, starts from 0
@@ -82,6 +84,14 @@ An example JSON is shown bellow:
 }
 ```
 
+### Publishing data
+After X amount of time get the current system resources. Use the MQTT client to publish the system resources to a MQTT broker.
+What are the topics that are used for the message:
+* `devices` -> root level hierarchy, all other topics go under it
+  * `<hostname>` -> each device will publish messages under the `devices/<hostname>` topic, where `<hostname>` is the hostname of the device
+    * `system` -> topic for holding all `<hostname>`'s system related messages
+      * `stats` -> resources of a device will be published here, i.e.: `devices/<hostname>/system/stats` will hold the `<hostname>`'s system resources
+
 ## Building
 To build the code run:
 ```
@@ -93,4 +103,28 @@ To run unit tests execute:
 ```
 cargo test
 ```
-<!-- TODO: ## Benchmark -->
+
+To run integration tests:
+* start the MQTT broker container, instructions [here](#mqtt-broker-docker-container).
+* run a MQTT subscriber client
+```
+docker exec --interactive --tty tum-mqtt-container mosquitto_sub -p 1883 -u "${USER}" -P "${USER}" -t device/tum-test/system/stats -v
+# NOTE: make sure that '-u' and '-P' arguments match the ones you set in docker build command, the 'MQTT_USERNAME' and 'MQTT_USERNAME' respectfully
+```
+
+## MQTT Broker Docker container
+To build the MQTT broker container execute the following from the repositories root directory:
+```
+docker build --build-arg MQTT_USERNAME="${USER}" --build-arg MQTT_PASSWORD="${USER}" --force-rm --tag tum-mqtt --file ./docker/mosquitto.dockerfile docker
+```
+
+To run the MQTT broker container execute the following:
+```
+docker run --detach --name tum-mqtt-container --hostname tum-test --rm -p 1883:1883 -p 9001:9001 --volume ./docker/config/mosquitto.conf:/mosquitto/config/mosquitto.conf --volume ./docker/data:/mosquitto/data/ --volume ./docker/log:/mosquitto/log tum-mqtt
+# NOTE: 'hostname' must match the one that is going to be used for the pub/sub topic for system statistics
+```
+
+To stop the MQTT broker container execute the following:
+```
+docker stop tum-mqtt-container
+```
