@@ -2,12 +2,26 @@ use random_string::generate;
 use rumqttc::{
     Client, ClientError, Connection, ConnectionError, Event, Incoming, MqttOptions, Outgoing, QoS,
 };
+use std::fmt;
 use std::time::Duration;
 
 #[derive(Debug)]
 pub enum MqttClientError {
     Client(ClientError),
     Connection(ConnectionError),
+}
+
+impl fmt::Display for MqttClientError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match *self {
+            MqttClientError::Client(ref err) => {
+                write!(f, "MQTT client error: {}", err)
+            }
+            MqttClientError::Connection(ref err) => {
+                write!(f, "MQTT connection error: {}", err)
+            }
+        }
+    }
 }
 
 impl From<ClientError> for MqttClientError {

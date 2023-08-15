@@ -125,6 +125,11 @@ impl Resource {
                 },
             );
 
+        let time = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_micros();
+
         self.system_info.refresh_networks();
         self.system_info
             .networks()
@@ -137,14 +142,12 @@ impl Resource {
                         network.rx_error_bytes = network_data.total_errors_on_received();
                         network.rx_error_bytes = network_data.total_errors_on_transmitted();
 
-                        let time = SystemTime::now()
-                            .duration_since(UNIX_EPOCH)
-                            .unwrap()
-                            .as_micros();
-                        network.rx_speed_bps = (network.rx_bytes - network.rx_bytes_old) as f64
-                            / (time - network.last_synced_timestamp) as f64;
-                        network.tx_speed_bps = (network.tx_bytes - network.tx_bytes_old) as f64
-                            / (time - network.last_synced_timestamp) as f64;
+                        network.rx_speed_bps = network.rx_bytes.abs_diff(network.rx_bytes_old)
+                            as f64
+                            / time.abs_diff(network.last_synced_timestamp) as f64;
+                        network.tx_speed_bps = network.tx_bytes.abs_diff(network.tx_bytes_old)
+                            as f64
+                            / time.abs_diff(network.last_synced_timestamp) as f64;
                         network.rx_bytes_old = network.rx_bytes;
                         network.tx_bytes_old = network.tx_bytes;
                         network.last_synced_timestamp = time;
