@@ -1,6 +1,6 @@
 [package]
 name = "tum"
-version = "0.1.0"
+version = "0.3.0"
 edition = "2021"
 authors = ["Luka Paulic <luka.paulic0@gmail.com>"]
 description = "Microsoft Teams implementation in RS using NCurses"
