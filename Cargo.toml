@@ -1,6 +1,6 @@
 [package]
 name = "tum"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 authors = ["Luka Paulic <luka.paulic0@gmail.com>"]
 description = "System usage monitoring for a friend"
@@ -17,8 +17,10 @@ bench = true
 sysinfo = "0"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+serde_yaml = "0"
 assert-json-diff = "2"
 rumqttc = "0"
 gethostname = "0"
 random-string = "1"
 ctrlc = "3"
+clap = { version = "4.3", features = ["derive"]}

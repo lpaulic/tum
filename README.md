@@ -92,6 +92,14 @@ What are the topics that are used for the message:
     * `system` -> topic for holding all `<hostname>`'s system related messages
       * `stats` -> resources of a device will be published here, i.e.: `devices/<hostname>/system/stats` will hold the `<hostname>`'s system resources
 
+### Application configuration
+The T.U.M. application has a configuration file that specifies necessary data for run time. The configuration file is in `YAML` format, and the available configuration options are:
+* `server_addr` -> address of the MQTT server to connect to, string value
+* `server_port` -> port of the MQTT server to connect to, integer value [0, (2^16)-1]
+* `username` -> username that we use to authenticate with the MQTT server we connect to, string value
+* `password` -> password that we use to authenticate with the MQTT server we connect to, string value, plaintext
+* `monitoring_rate_s` -> delay in seconds between sending new system usage data to the MQTT server, integer value [0, (2^64)-1]
+
 ## Building
 To build the code run:
 ```
@@ -127,4 +135,25 @@ docker run --detach --name tum-mqtt-container --hostname tum-test --rm -p 1883:1
 To stop the MQTT broker container execute the following:
 ```
 docker stop tum-mqtt-container
+```
+
+## Running
+The application ca be ran in two ways:
+* using cargo:
+```
+cargo run [-- -c <configuration-file-path>]
+```
+* invoking the binary directly:
+```
+<path-to-executable>/tum [-c <configuration-file-path>]
+```
+
+The application usage can be printed as follows:
+* using cargo:
+```
+cargo run -- --help | -h
+```
+* invoking the binary directly:
+```
+<path-to-executable>/tum --help | -h
 ```

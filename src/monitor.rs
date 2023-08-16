@@ -8,6 +8,7 @@ use std::marker::Send;
 use std::sync::{Arc, Mutex};
 use std::thread;
 
+#[derive(Debug)]
 pub enum ResourceMonitorError {
     ResourceSynchronization,
     TransmissionSynchronization,
