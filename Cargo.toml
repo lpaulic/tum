@@ -3,7 +3,7 @@ name = "tum"
 version = "0.3.0"
 edition = "2021"
 authors = ["Luka Paulic <luka.paulic0@gmail.com>"]
-description = "Microsoft Teams implementation in RS using NCurses"
+description = "System usage monitoring for a friend"
 license = "MIT"
 
 [[bin]]
