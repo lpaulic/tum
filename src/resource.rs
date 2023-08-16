@@ -127,7 +127,7 @@ impl Resource {
 
         let time = SystemTime::now()
             .duration_since(UNIX_EPOCH)
-            .unwrap()
+            .unwrap_or(Duration::new(0, 0))
             .as_micros();
 
         self.system_info.refresh_networks();

@@ -1,0 +1,5 @@
+server_addr: localhost
+server_port: 1883
+username: lpaulic
+password: lpaulic
+monitoring_rate_s: 5

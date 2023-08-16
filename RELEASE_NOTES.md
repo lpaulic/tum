@@ -1,3 +1,14 @@
+# Release notes for T.U.M. version 0.4.0
+Version 0.4.0 released on 2023-08-16
+
+## Feature
+* add command line argument support
+* add configuration file support
+
+## Fix
+* coding style improvements
+* add missing Debug traits
+
 # Release notes for T.U.M. version 0.3.0
 Version 0.3.0 released on 2023-08-15
 
