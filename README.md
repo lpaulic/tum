@@ -102,6 +102,8 @@ The T.U.M. application has a configuration file that specifies necessary data fo
 * `password` -> password that we use to authenticate with the MQTT server we connect to, string value, plaintext
 * `monitoring_rate_s` -> delay in seconds between sending new system usage data to the MQTT server, integer value [0, (2^64)-1]
 
+An example configuration can be found [here](./config/example-config.yaml).
+
 ## Building
 To build the code run:
 ```
