@@ -6,7 +6,10 @@ use crate::configuration::{Configuration, ConfigurationError};
 use crate::monitor::{ResourceMonitor, ResourceMonitorError};
 use crate::mqtt_client::MqttClient;
 
+#[cfg(target_family = "unix")]
 const DEFAULT_CONFIGURATION_PATH_STR: &str = "/etc/tum/configuration.yml";
+#[cfg(target_family = "windows")]
+const DEFAULT_CONFIGURATION_PATH_STR: &str = "C:\\Program Files\\tum\\configuration.yml";
 
 #[derive(Debug, Parser)]
 #[command(name = "tum")]

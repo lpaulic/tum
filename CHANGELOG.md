@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.2] - 2023-08-18
+
+### Fixed
+- conditional compilation for default path depending on platform
+
 ## [0.4.1] - 2023-08-18
 
 ### Changed
